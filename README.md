@@ -16,6 +16,49 @@ An online marketplace that allows users to buy and sell products. Users can regi
 - Efficient use of caching mechanisms, such as Redis or Memcached, to improve performance
 - Use of an MVC architecture (Not Laravel or CodeIgniter)
 
+## API Routes
+
+### Authentication:
+
+- `POST /api/login: Authenticate user and generate access token
+- `POST /api/register: Register a new user account
+
+### Products:
+
+- `GET /api/products: Retrieve all products
+- `GET /api/products/{id}: Retrieve a specific product by ID
+- `POST /api/products: Create a new product listing
+- `PUT /api/products/{id}: Update a product listing
+- `DELETE /api/products/{id}: Delete a product listing
+
+### Orders:
+
+- `GET /api/orders: Retrieve all orders
+- `GET /api/orders/{id}: Retrieve a specific order by ID
+- `POST /api/orders: Create a new order
+- `PUT /api/orders/{id}: Update an existing order
+- `DELETE /api/orders/{id}: Delete an order
+
+### Users:
+
+- `GET /api/users: Retrieve all users
+- `GET /api/users/{id}: Retrieve a specific user by ID
+- `PUT /api/users/{id}: Update a user account
+- `DELETE /api/users/{id}: Delete a user account
+
+### Categories:
+- `GET /api/categories: Retrieve all categories
+- `GET /api/categories/{id}: Retrieve a specific category by ID
+- `POST /api/categories: Create a new category
+- `PUT /api/categories/{id}: Update a category
+- `DELETE /api/categories/{id}: Delete a category
+
+### Payments:
+
+- `POST /api/payments: Process payment using payment gateway (e.g., PayPal)
+
+Note: This is just an example, and you may need to modify the routes and methods based on the specific requirements.
+
 ## Evaluation Criteria
 
 - Correctness and completeness of the implementation
