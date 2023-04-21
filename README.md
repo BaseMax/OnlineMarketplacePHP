@@ -55,7 +55,7 @@ An online marketplace that allows users to buy and sell products. Users can regi
 
 ### Payments:
 
-- `POST /api/payments`: Process payment using payment gateway (e.g., PayPal)
+- `POST /api/payments`: Process payment using payment gateway (With a good structure that allows us to add more gateways in the future)
 
 Note: This is just an example, and you may need to modify the routes and methods based on the specific requirements.
 
