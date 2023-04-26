@@ -19,4 +19,8 @@ class Router extends Facade
     public static function delete(string $path, array $callback)
     {
     }
+
+    public static function fallback(array $callback)
+    {
+    }
 }
