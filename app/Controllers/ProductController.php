@@ -3,16 +3,23 @@
 namespace App\Controllers;
 
 use App\Facades\Hash;
+use App\Facades\JWT;
 use App\Facades\Response;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        return Response::json([
-            // "aliahmadi" => Hash::hash("aliahmadi")
-            "verify" => Hash::verify("aliahmadi", '$2y$10$m8anuztPePdqZS.jJVO9OK3KpNaYyUokGROmWFcStz4y4OnQKFGm')
+        $jwt = Response::json([
+            JWT::encode([
+                "name"   => "ali",
+                "family" => "ahmadi",
+                "age"    => 20
+            ])
         ]);
+
+
+        return Response::json(JWT::decode('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYW1lIjoiYWxpIiwiZmFtaWx5IjoiYWhtYWRpIiwiYWdlIjoyMH0.9mmNMJDM821fqZi4Nm4ODDZIdr080DIcPU0mH5N78ug'));
     }
 
     public function show()
