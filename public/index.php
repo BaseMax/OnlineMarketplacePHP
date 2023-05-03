@@ -14,4 +14,4 @@ $app = new Application();
 
 include_once dirname(__DIR__) . "/app/api.php";
 
-$app->run();
+echo $app->run();

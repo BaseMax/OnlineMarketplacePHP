@@ -13,6 +13,6 @@ class Application extends Facade
 
     public function run()
     {
-        $this->router->resolve();
+        return $this->router->resolve();
     }
 }
