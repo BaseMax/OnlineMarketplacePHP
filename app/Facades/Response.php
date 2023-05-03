@@ -15,4 +15,13 @@ class Response extends Facade
 
         return json_encode($data);
     }
+
+    public static function notFound(): string
+    {
+        self::statusCode(404);
+
+        return self::json([
+            "detail" => "not found"
+        ]);
+    }
 }
