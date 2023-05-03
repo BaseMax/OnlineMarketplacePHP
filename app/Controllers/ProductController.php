@@ -2,13 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Facades\Response;
+
 class ProductController extends Controller
 {
     public function index()
     {
-        return [
-            "this is" => "test"
-        ];
     }
 
     public function show()
