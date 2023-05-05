@@ -17,6 +17,14 @@ class Product extends Model
     public string $created_at;
     public string $updated_at;
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->created_at = date('Y-m-d H:i:s', time());
+        $this->updated_at = date('Y-m-d H:i:s', time());
+    }
+
     public static function find(int $id): Product|bool
     {
         $product = self::_find($id);

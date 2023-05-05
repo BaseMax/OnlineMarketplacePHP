@@ -24,14 +24,12 @@ class ProductController extends Controller
     public function show()
     {
         $data = [
-            "id"          => 1,
-            "title"       => "this is title of product",
-            "description" => "this is a full descriptive text",
-            "price"       => 12.45,
+            "id"          => 2,
+            "title"       => "this is title2 of product",
+            "description" => "this is a full descriptive text2",
+            "price"       => 29,
             "category_id" => 1,
             "seller_id"   => 1,
-            "created_at"  => date('Y-m-d H:i:s', time()),
-            "updated_at"  => date('Y-m-d H:i:s', time())
         ];
 
         $product = new Product();
@@ -42,8 +40,6 @@ class ProductController extends Controller
         $product->price = $data["price"];
         $product->category_id = $data["category_id"];
         $product->seller_id = $data["seller_id"];
-        $product->created_at = $data["created_at"];
-        $product->updated_at = $data["updated_at"];
 
 
         return $product->save();
