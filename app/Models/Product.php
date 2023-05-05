@@ -61,11 +61,12 @@ class Product extends Model
         }
     }
 
-    // public static function all(): array
-    // {
-    //     $products = [];
+    public static function all(): array
+    {
+        $databaseProduct = new DatabaseProduct();
 
-    // }
+        return $databaseProduct->get_all();
+    }
 
     public function toString(): array
     {

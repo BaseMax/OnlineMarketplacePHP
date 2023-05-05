@@ -6,22 +6,25 @@ use App\Facades\Hash;
 use App\Facades\JWT;
 use App\Facades\Response;
 use App\Models\Product;
-use DateTime;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $product = Product::find(1);
+        return Response::json(Product::all());
+    }
+
+    public function show(int $id)
+    {
+        $product = Product::find($id);
 
         if ($product) {
             return $product;
         }
-
         return Response::notFound();
     }
 
-    public function show()
+    public function store()
     {
         $data = [
             "id"          => 2,
@@ -41,15 +44,7 @@ class ProductController extends Controller
         $product->category_id = $data["category_id"];
         $product->seller_id = $data["seller_id"];
 
-
         return $product->save();
-
-
-        return Response::json($data);
-    }
-
-    public function store()
-    {
     }
 
     public function update()

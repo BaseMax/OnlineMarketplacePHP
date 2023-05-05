@@ -22,8 +22,12 @@ class Product extends Database
     {
         $sql = self::$get_all;
 
-        $stmt = self::$db->prepare($sql);
-        $stmt->execute();
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return ProductException::error($e->getMessage());
+        }
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -32,8 +36,12 @@ class Product extends Database
     {
         $sql = self::setId(self::$get_by_id, $id);
 
-        $stmt = self::$db->prepare($sql);
-        $stmt->execute();
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return ProductException::error($e->getMessage());
+        }
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -54,7 +62,7 @@ class Product extends Database
             $stmt = self::$db->prepare($sql);
             $stmt->execute();
         } catch (Exception $e) {
-            return ProductException::error_in_insert();
+            return ProductException::error($e->getMessage());
         }
 
         return Response::success("product created successfuly");

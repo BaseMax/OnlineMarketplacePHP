@@ -6,7 +6,7 @@ use App\Facades\Response;
 
 class ProductException extends Exception
 {
-    public static function error_in_insert(string $error = "error in server"): string
+    public static function error(string $error = "error in server"): void
     {
         Response::statusCode(500);
         echo Response::json([
