@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
-class Exception extends Exception
+use Exception as MainException;
+
+class Exception extends MainException
 {
 }

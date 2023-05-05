@@ -14,4 +14,13 @@ class ProductException extends Exception
         ]);
         exit;
     }
+
+    public static function invalid_posted_data(string $error = "invalid data"): string
+    {
+        Response::statusCode(401);
+        echo Response::json([
+            "detail" => $error
+        ]);
+        exit;
+    }
 }

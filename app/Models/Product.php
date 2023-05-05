@@ -71,7 +71,7 @@ class Product extends Model
     public function toString(): array
     {
         return [
-            "id"          => $this->id,
+            "id"          => $this->id ?? 0,
             "title"       => $this->title,
             "description" => $this->description,
             "price"       => $this->price,

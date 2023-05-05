@@ -54,6 +54,7 @@ class Product extends Database
     public static function create(array $data): string
     {
         new self;
+        unset($data["id"]);
         $sql = self::$create_product;
         $sql = self::setColumns($sql, array_keys($data));
         $sql = self::setValues($sql, array_values($data));

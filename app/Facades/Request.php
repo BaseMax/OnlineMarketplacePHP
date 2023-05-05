@@ -17,4 +17,9 @@ class Request extends Facade
         if (!$position) return $path;
         else return substr($path, 0, $position);
     }
+
+    public static function post(): array
+    {
+        return $_POST;
+    }
 }
