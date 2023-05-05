@@ -17,4 +17,18 @@ class Database
 
         self::$db = new PDO($dsn, $user, $password);
     }
+
+    protected static function setColumns(string $sql, array $columns): string
+    {
+        $implode = '`' . implode('`, `', $columns) . '`';
+
+        return str_replace("{columns}", $implode, $sql);
+    }
+
+    protected static function setValues(string $sql, array $values): string
+    {
+        $implode = "'" . implode("', '", $values) . "'";
+
+        return str_replace("{values}", $implode, $sql);
+    }
 }

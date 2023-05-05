@@ -24,4 +24,11 @@ class Response extends Facade
             "detail" => "not found"
         ]);
     }
+
+    public static function success(string $detail = "success"): string
+    {
+        return Response::json([
+            "detail" => $detail
+        ]);
+    }
 }

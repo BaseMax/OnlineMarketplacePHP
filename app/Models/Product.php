@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Database\Product as DatabaseProduct;
 use App\Facades\Response;
-use DateTime;
 use Exception;
 
 class Product extends Model
@@ -15,8 +14,8 @@ class Product extends Model
     public float $price;
     public int $category_id;
     public int $seller_id;
-    public DateTime $created_at;
-    public DateTime $updated_at;
+    public string $created_at;
+    public string $updated_at;
 
     public static function find(int $id): Product|bool
     {
@@ -60,7 +59,7 @@ class Product extends Model
 
     // }
 
-    public function __toString()
+    public function toString(): array
     {
         return [
             "id"          => $this->id,
@@ -72,5 +71,16 @@ class Product extends Model
             "created_at"  => $this->created_at,
             "updated_at"  => $this->updated_at
         ];
+    }
+
+    public function save(): string
+    {
+        $product = $this->toString();
+        return DatabaseProduct::create($product);
+    }
+
+    public function __toString()
+    {
+        return Response::json($this->toString());
     }
 }
