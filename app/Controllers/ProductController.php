@@ -63,7 +63,16 @@ class ProductController extends Controller
     {
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
+        $validation = (new Validator())->make(["id" => $id], [
+            "id" => "required|numeric"
+        ]);
+
+        if ($validation->fails()) {
+            return ProductException::error("id is required");
+        }
+
+        return Product::destroy($id);
     }
 }

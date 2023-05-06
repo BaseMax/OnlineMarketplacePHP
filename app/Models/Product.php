@@ -92,4 +92,9 @@ class Product extends Model
     {
         return Response::json($this->toString());
     }
+
+    public static function destroy(int $id): string
+    {
+        return DatabaseProduct::Delete($id);
+    }
 }

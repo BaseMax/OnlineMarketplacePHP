@@ -12,6 +12,7 @@ class Product extends Database
     protected static string $get_all = "SELECT * FROM products;";
     protected static string $get_by_id = "SELECT * FROM products WHERE id = {id};";
     protected static string $create_product = "INSERT INTO products ({columns}) VALUES ({values});";
+    protected static string $delete_product = "DELETE FROM products WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -67,5 +68,20 @@ class Product extends Database
         }
 
         return Response::success("product created successfuly");
+    }
+
+    public static function delete(int $id): string
+    {
+        new self;
+        $sql = self::$delete_product;
+        $sql = self::setId($sql, $id);
+
+        $stmt = self::$db->prepare($sql);
+
+        try {
+            if ($stmt->execute()) return Response::success("product deleted successfuly");
+        } catch (Exception $e) {
+            return ProductException::error($e->getMessage());
+        }
     }
 }
