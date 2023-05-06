@@ -13,6 +13,7 @@ class Product extends Database
     protected static string $get_by_id = "SELECT * FROM products WHERE id = {id};";
     protected static string $create_product = "INSERT INTO products ({columns}) VALUES ({values});";
     protected static string $delete_product = "DELETE FROM products WHERE `id` = {id};";
+    protected static string $update_product = "UPDATE products SET {sets} WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -83,5 +84,36 @@ class Product extends Database
         } catch (Exception $e) {
             return ProductException::error($e->getMessage());
         }
+    }
+
+
+    public static function update(int $id, array $data): array|bool
+    {
+        new self;
+
+        $sql = self::setId(self::$update_product, $id);
+        $sql = self::setParams($sql, $data);
+
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return ProductException::error("unsuccess update");
+        }
+
+        return self::get_by_id($id);
+    }
+
+    protected static function setParams(string $sql, array $data): string
+    {
+        $update_values = '';
+
+        foreach ($data as $key => $value)
+            $update_values .= "$key='$value', ";
+
+        $update_values = rtrim($update_values, ', ');
+
+        return str_replace("{sets}", $update_values, $sql);
     }
 }
