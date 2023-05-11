@@ -44,4 +44,9 @@ class Order extends Model
 
         return Response::json($order);
     }
+
+    public static function destroy(int $id): string
+    {
+        return DatabaseOrder::destroy($id);
+    }
 }

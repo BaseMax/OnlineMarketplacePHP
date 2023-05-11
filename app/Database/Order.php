@@ -12,6 +12,7 @@ class Order extends Database
     protected static string $get_all = "SELECT * FROM orders;";
     protected static string $get_by_id = "SELECT * FROM orders WHERE `id` = {id};";
     protected static string $create_order =  "INSERT INTO orders ({columns}) VALUES ({values});";
+    protected static string $delete_order = "DELETE FROM orders WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -67,5 +68,24 @@ class Order extends Database
         }
 
         return self::find(self::$db->lastInsertId());
+    }
+
+    public static function destroy(int $id): string
+    {
+        new self;
+
+        $sql = self::setId(self::$delete_order, $id);
+
+        $stmt = self::$db->prepare($sql);
+
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            OrderException::error($e->getMessage());
+        }
+
+        return Response::json([
+            "detail" => "order deleted successfuly"
+        ]);
     }
 }

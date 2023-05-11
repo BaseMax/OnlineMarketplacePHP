@@ -47,7 +47,8 @@ class OrderController extends Controller
     {
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
+        return Order::destroy($id);
     }
 }
