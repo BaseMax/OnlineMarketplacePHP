@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Exceptions\UserException;
+use App\Facades\Hash;
 use App\Facades\Response;
 use Exception;
 use PDO;
@@ -13,6 +14,7 @@ class User extends Database
     protected static string $get_by_id = "SELECT * FROM users WHERE `id` = {id};";
     protected static string $delete_user = "DELETE FROM users WHERE `id` = {id};";
     protected static string $update_user = "UPDATE users SET {sets} WHERE `id` = {id};";
+    protected static string $check_user = "SELECT * FROM users WHERE `email` = '{email}';";
 
 
 
@@ -82,5 +84,39 @@ class User extends Database
         }
 
         return self::get_by_id($id);
+    }
+
+    public static function check(string $email, string $password): bool
+    {
+        new self;
+
+        $sql = self::$check_user;
+        $sql = self::setEmail($sql, $email);
+
+        $stmt = self::$db->prepare($sql);
+        try {
+            $stmt->execute();
+        } catch (Exception $e) {
+            UserException::error($e->getMessage(), 500);
+        }
+
+        if ($stmt->rowCount() == 0) UserException::error("something went wrong in your credentials", 403);
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return self::_check($user, $email, $password);
+    }
+
+    protected static function setEmail(string $sql, string $email): string
+    {
+        return str_replace("{email}", $email, $sql);
+    }
+
+    private static function _check(array $user, string $email, string $password): bool
+    {
+        if ($user["email"] == $email && Hash::verify($password, $user["password"])) {
+            return true;
+        }
+        return false;
     }
 }

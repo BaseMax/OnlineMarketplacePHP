@@ -9,8 +9,9 @@ class Response extends Facade
         http_response_code($statusCode);
     }
 
-    public static function json(array $data): string
+    public static function json(array $data, int $status = 200): string
     {
+        self::statusCode($status);
         header("Content-Type: application/json");
 
         return json_encode($data);

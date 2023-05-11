@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Database\User as DatabaseUser;
 use App\Exceptions\UserException;
+use App\Facades\Hash;
 use App\Facades\Response;
 use Exception;
 
@@ -101,5 +102,10 @@ class User extends Model
             return UserException::error("product not found", 404);
         }
         return DatabaseUser::update($id, $data);
+    }
+
+    public static function check(string $email, string $password): bool
+    {
+        return DatabaseUser::check($email, Hash::hash($password));
     }
 }
