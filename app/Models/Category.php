@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Database\Category as DatabaseCategory;
+use App\Exceptions\CategoryException;
 use App\Facades\Response;
 
 class Category extends Model
@@ -67,5 +68,15 @@ class Category extends Model
     {
         $category = $this->toString();
         return DatabaseCategory::create($category);
+    }
+
+    public static function update(int $id, array $data): array
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return CategoryException::error("category not found", 404);
+        }
+        return DatabaseCategory::update($id, $data);
     }
 }

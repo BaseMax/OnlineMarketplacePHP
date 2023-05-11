@@ -13,6 +13,8 @@ class Category extends Database
     protected static string $get_by_id = "SELECT * FROM categories WHERE `id` = {id};";
     protected static string $delete_category = "DELETE FROM categories WHERE `id` = {id};";
     protected static string $create_category = "INSERT INTO category ({columns}) VALUES ({values});";
+    protected static string $update_category = "UPDATE categories SET {sets} WHERE `id` = {id};";
+
 
     public function __construct()
     {
@@ -79,5 +81,23 @@ class Category extends Database
         }
 
         return Response::success("category created successfuly");
+    }
+
+    public static function update(int $id, array $data): array|bool
+    {
+        new self;
+
+        $sql = self::setId(self::$update_category, $id);
+        $sql = self::setParams($sql, $data);
+
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return CategoryException::error($e->getMessage());
+        }
+
+        return self::get_by_id($id);
     }
 }

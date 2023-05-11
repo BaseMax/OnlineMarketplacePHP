@@ -49,8 +49,18 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(int $id)
     {
+        $data = Request::post();
+
+        $validation = (new Validator())->make($data, [
+            "name" => "max:255",
+        ]);
+
+        $validation->validate();
+
+        $updatedCategory = Category::update($id, $data);
+        return $updatedCategory;
     }
 
     public function destroy(int $id)
