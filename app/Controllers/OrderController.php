@@ -2,8 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\OrderException;
+use App\Facades\Request;
 use App\Facades\Response;
 use App\Models\Order;
+use Rakit\Validation\Validator;
 
 class OrderController extends Controller
 {
@@ -23,6 +26,21 @@ class OrderController extends Controller
 
     public function store()
     {
+        $data = Request::post();
+
+        $validation = (new Validator())->make($data, [
+            "buyer_id" => "required|numeric",
+            "product_id" => "required|numberic",
+            "quantity" => "required|numeric",
+            "amount" => "required|numeric",
+            "status" => "required|in:pending,completed,cancelled",
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) OrderException::error("data validation failed", 403);
+
+        return Order::create($data);
     }
 
     public function update()
