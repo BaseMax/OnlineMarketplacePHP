@@ -2,8 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\CategoryException;
+use App\Facades\Request;
 use App\Facades\Response;
 use App\Models\Category;
+use Rakit\Validation\Validator;
 
 class CategoryController extends Controller
 {
@@ -24,6 +27,26 @@ class CategoryController extends Controller
 
     public function store()
     {
+        $data = Request::post();
+        $validation = (new Validator())->make($data, [
+            "name" => "required|max:255",
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) {
+            return CategoryException::error("name of category is required", 403);
+        }
+
+        $category = new Category();
+
+        $category->name = $data["name"];
+
+        $category->save();
+
+        return Response::json([
+            "detail" => "success"
+        ]);
     }
 
     public function update()

@@ -18,6 +18,14 @@ class User extends Model
     public string|null $created_at;
     public string|null $updated_at;
 
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->created_at = date('Y-m-d H:i:s', time());
+        $this->updated_at = date('Y-m-d H:i:s', time());
+    }
+
     public static function all(): array
     {
         return DatabaseUser::all();

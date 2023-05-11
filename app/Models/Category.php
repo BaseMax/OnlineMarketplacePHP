@@ -62,4 +62,10 @@ class Category extends Model
     {
         return DatabaseCategory::delete($id);
     }
+
+    public function save(): string
+    {
+        $category = $this->toString();
+        return DatabaseCategory::create($category);
+    }
 }
