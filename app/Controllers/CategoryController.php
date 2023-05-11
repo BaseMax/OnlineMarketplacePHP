@@ -12,8 +12,14 @@ class CategoryController extends Controller
         return Response::json(Category::all());
     }
 
-    public function show()
+    public function show(int $id)
     {
+        $category = Category::find($id);
+
+        if ($category) {
+            return $category;
+        }
+        return Response::notFound();
     }
 
     public function store()

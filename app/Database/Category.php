@@ -9,6 +9,7 @@ use PDO;
 class Category extends Database
 {
     protected static string $all_categories = "SELECT * FROM categories;";
+    protected static string $get_by_id = "SELECT * FROM categories WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -28,5 +29,19 @@ class Category extends Database
         }
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function get_by_id(int $id): array|bool
+    {
+        $sql = self::setId(self::$get_by_id, $id);
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return CategoryException::error($e->getMessage());
+        }
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

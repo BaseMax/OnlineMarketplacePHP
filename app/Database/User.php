@@ -10,7 +10,7 @@ use PDO;
 class User extends Database
 {
     protected static string $get_all_users = "SELECT * FROM users;";
-    protected static string $get_by_id = "SELECT * FROM users WHERE id = {id};";
+    protected static string $get_by_id = "SELECT * FROM users WHERE `id` = {id};";
     protected static string $delete_user = "DELETE FROM users WHERE `id` = {id};";
     protected static string $update_user = "UPDATE users SET {sets} WHERE `id` = {id};";
 
