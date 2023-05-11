@@ -43,5 +43,21 @@ class AuthController extends Controller
 
     public function register()
     {
+        $data = Request::post();
+
+        $validation = (new Validator())->make($data, [
+            "name" => "required|max:255",
+            "email" => "required|max:255",
+            "password" => "required",
+            "role" => "required"
+        ]);
+
+        $validation->validate();
+
+        if ($validation->fails()) {
+            UserException::error("something went wrong", 403);
+        }
+
+        return User::create($data);
     }
 }

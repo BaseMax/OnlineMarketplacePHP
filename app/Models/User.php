@@ -108,4 +108,9 @@ class User extends Model
     {
         return DatabaseUser::check($email, Hash::hash($password));
     }
+
+    public static function create(array $data): array
+    {
+        return DatabaseUser::create($data);
+    }
 }
