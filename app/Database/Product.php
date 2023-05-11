@@ -48,10 +48,6 @@ class Product extends Database
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    private static function setId(string $sql, int $id): string
-    {
-        return str_replace("{id}", $id, $sql);
-    }
 
     public static function create(array $data): string
     {

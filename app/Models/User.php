@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Database\User as DatabaseUser;
+use App\Exceptions\UserException;
+use App\Facades\Response;
 use DateTime;
+use Exception;
 
 class User extends Model
 {
@@ -19,5 +22,62 @@ class User extends Model
     public static function all(): array
     {
         return DatabaseUser::all();
+    }
+
+    public static function find(int $id): User|bool
+    {
+        $user = self::_find($id);
+
+        if ($user) {
+            $user = (new User())->load($user);
+            return $user;
+        }
+        return false;
+    }
+
+    private static function _find(int $id): array|bool
+    {
+        $user = (new DatabaseUser())->get_by_id($id);
+
+        return $user;
+    }
+
+
+    public static function findOrFail(int $id): ?User
+    {
+        try {
+            $user = self::find($id);
+            return $user;
+        } catch (Exception $e) {
+            UserException::error($e->getMessage());
+            exit;
+        }
+    }
+
+    private function load(array $user): User
+    {
+        foreach ($user as $key => $value) {
+            $this->$key = $value;
+        }
+        return $this;
+    }
+
+    public function toString(): array
+    {
+        return [
+            "id"             => $this->id ?? 0,
+            "name"           => $this->name,
+            "email"          => $this->email,
+            "password"       => $this->password,
+            "remember_token" => $this->remember_token,
+            "role"           => $this->role,
+            "created_at"     => $this->created_at,
+            "updated_at"     => $this->updated_at
+        ];
+    }
+
+    public function __toString()
+    {
+        return Response::json($this->toString());
     }
 }

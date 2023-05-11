@@ -12,8 +12,14 @@ class UserController extends Controller
         return Response::json(User::all());
     }
 
-    public function show()
+    public function show(int $id)
     {
+        $user = User::find($id);
+
+        if ($user) {
+            return $user;
+        }
+        return Response::notFound();
     }
 
     public function update()
