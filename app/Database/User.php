@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Exceptions\UserException;
+use App\Facades\Response;
 use Exception;
 use PDO;
 
@@ -10,6 +11,7 @@ class User extends Database
 {
     protected static string $get_all_users = "SELECT * FROM users;";
     protected static string $get_by_id = "SELECT * FROM users WHERE id = {id};";
+    protected static string $delete_user = "DELETE FROM users WHERE `id` = {id};";
 
 
     public function __construct()
@@ -45,5 +47,20 @@ class User extends Database
         }
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function delete(int $id): string
+    {
+        new self;
+        $sql = self::$delete_user;
+        $sql = self::setId($sql, $id);
+
+        $stmt = self::$db->prepare($sql);
+
+        try {
+            if ($stmt->execute()) return Response::success("product deleted successfuly");
+        } catch (Exception $e) {
+            return UserException::error($e->getMessage());
+        }
     }
 }

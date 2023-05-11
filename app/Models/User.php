@@ -80,4 +80,9 @@ class User extends Model
     {
         return Response::json($this->toString());
     }
+
+    public static function destroy(int $id): string
+    {
+        return DatabaseUser::delete($id);
+    }
 }
