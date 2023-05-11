@@ -19,4 +19,13 @@ class Order extends Model
     {
         return DatabaseOrder::all();
     }
+
+    public static function find(int $id): array|bool
+    {
+        $order = DatabaseOrder::find($id);
+
+        if (!$order) return false;
+
+        return $order;
+    }
 }

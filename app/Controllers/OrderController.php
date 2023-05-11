@@ -12,8 +12,13 @@ class OrderController extends Controller
         return Response::json(Order::all());
     }
 
-    public function show()
+    public function show(int $id)
     {
+        $order = Order::find($id);
+
+        if (!$order) return Response::notFound();
+
+        return $order;
     }
 
     public function store()

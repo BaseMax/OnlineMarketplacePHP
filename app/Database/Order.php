@@ -9,6 +9,7 @@ use PDO;
 class Order extends Database
 {
     protected static string $get_all = "SELECT * FROM orders;";
+    protected static string $get_by_id = "SELECT * FROM orders WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -29,5 +30,21 @@ class Order extends Database
         }
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function find(int $id): ?array
+    {
+        new self;
+
+        $sql = self::setId(self::$get_by_id, $id);
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return OrderException::error($e->getMessage());
+        }
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
