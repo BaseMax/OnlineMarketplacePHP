@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Exceptions\CategoryException;
+use App\Facades\Response;
 use Exception;
 use PDO;
 
@@ -10,6 +11,7 @@ class Category extends Database
 {
     protected static string $all_categories = "SELECT * FROM categories;";
     protected static string $get_by_id = "SELECT * FROM categories WHERE `id` = {id};";
+    protected static string $delete_category = "DELETE FROM categories WHERE `id` = {id};";
 
     public function __construct()
     {
@@ -43,5 +45,20 @@ class Category extends Database
         }
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function delete(int $id): string
+    {
+        new self;
+        $sql = self::$delete_category;
+        $sql = self::setId($sql, $id);
+
+        $stmt = self::$db->prepare($sql);
+
+        try {
+            if ($stmt->execute()) return Response::success("category deleted successfuly");
+        } catch (Exception $e) {
+            return CategoryException::error($e->getMessage());
+        }
     }
 }

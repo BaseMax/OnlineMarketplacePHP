@@ -30,7 +30,8 @@ class CategoryController extends Controller
     {
     }
 
-    public function destroy()
+    public function destroy(int $id)
     {
+        return Category::destroy($id);
     }
 }

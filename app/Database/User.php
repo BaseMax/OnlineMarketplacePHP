@@ -60,7 +60,7 @@ class User extends Database
         $stmt = self::$db->prepare($sql);
 
         try {
-            if ($stmt->execute()) return Response::success("product deleted successfuly");
+            if ($stmt->execute()) return Response::success("user deleted successfuly");
         } catch (Exception $e) {
             return UserException::error($e->getMessage());
         }
