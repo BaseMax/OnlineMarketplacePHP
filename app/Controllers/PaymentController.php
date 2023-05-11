@@ -7,4 +7,6 @@ class PaymentController extends Controller
     public function pay()
     {
     }
+
+    // public static function 
 }

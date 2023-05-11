@@ -36,4 +36,9 @@ class Config extends Facade
     {
         return $_ENV["DB_USER"];
     }
+
+    public static function api_key(): string
+    {
+        return $_ENV["X_API_KEY"];
+    }
 }

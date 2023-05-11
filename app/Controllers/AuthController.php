@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Exceptions\UserException;
+use App\Facades\Hash;
+use App\Facades\JWT;
 use App\Facades\Request;
 use App\Facades\Response;
 use App\Models\User;
@@ -30,6 +32,13 @@ class AuthController extends Controller
                 "detail" => "login unsuccessful"
             ], 403);
         }
+
+        return Response::json([
+            "JWT_token" => JWT::encode([
+                "email" => $data["email"],
+                "password" => Hash::hash($data["password"])
+            ])
+        ]);
     }
 
     public function register()
