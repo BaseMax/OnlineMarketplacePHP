@@ -85,4 +85,14 @@ class User extends Model
     {
         return DatabaseUser::delete($id);
     }
+
+    public static function update(int $id, array $data)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return UserException::error("product not found", 404);
+        }
+        return DatabaseUser::update($id, $data);
+    }
 }

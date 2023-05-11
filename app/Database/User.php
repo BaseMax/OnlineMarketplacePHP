@@ -12,6 +12,8 @@ class User extends Database
     protected static string $get_all_users = "SELECT * FROM users;";
     protected static string $get_by_id = "SELECT * FROM users WHERE id = {id};";
     protected static string $delete_user = "DELETE FROM users WHERE `id` = {id};";
+    protected static string $update_user = "UPDATE users SET {sets} WHERE `id` = {id};";
+
 
 
     public function __construct()
@@ -62,5 +64,23 @@ class User extends Database
         } catch (Exception $e) {
             return UserException::error($e->getMessage());
         }
+    }
+
+    public static function update(int $id, array $data): array|bool
+    {
+        new self;
+
+        $sql = self::setId(self::$update_user, $id);
+        $sql = self::setParams($sql, $data);
+
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            return UserException::error($e->getMessage());
+        }
+
+        return self::get_by_id($id);
     }
 }

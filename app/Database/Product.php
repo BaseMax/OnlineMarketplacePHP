@@ -100,16 +100,4 @@ class Product extends Database
 
         return self::get_by_id($id);
     }
-
-    protected static function setParams(string $sql, array $data): string
-    {
-        $update_values = '';
-
-        foreach ($data as $key => $value)
-            $update_values .= "$key='$value', ";
-
-        $update_values = rtrim($update_values, ', ');
-
-        return str_replace("{sets}", $update_values, $sql);
-    }
 }
