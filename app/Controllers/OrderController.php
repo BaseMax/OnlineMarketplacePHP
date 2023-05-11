@@ -29,11 +29,11 @@ class OrderController extends Controller
         $data = Request::post();
 
         $validation = (new Validator())->make($data, [
-            "buyer_id" => "required|numeric",
-            "product_id" => "required|numberic",
-            "quantity" => "required|numeric",
-            "amount" => "required|numeric",
-            "status" => "required|in:pending,completed,cancelled",
+            "buyer_id"    => "required|numeric",
+            "product_id"  => "required|numberic",
+            "quantity"    => "required|numeric",
+            "amount"      => "required|numeric",
+            "status"      => "required|in:pending,completed,cancelled",
         ]);
 
         $validation->validate();
@@ -43,8 +43,22 @@ class OrderController extends Controller
         return Order::create($data);
     }
 
-    public function update()
+    public function update(int $id)
     {
+        $data = Request::update();
+
+        $validation = (new Validator())->make($data, [
+            "quantity"  => "numeric",
+            "amount"    => "numeric",
+            "status"    => "in:pending,completed,cancelled"
+        ]);
+
+
+        $validation->validate();
+
+        if ($validation->fails()) OrderException::error("data validation failed", 403);
+
+        return Order::update($id, $data);
     }
 
     public function destroy(int $id)

@@ -59,7 +59,7 @@ class ProductController extends Controller
 
     public function update(int $id)
     {
-        $data = Request::post();
+        $data = Request::update();
 
         $validation = (new Validator())->make($data, [
             "title" => "max:255",

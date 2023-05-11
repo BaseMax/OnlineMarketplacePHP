@@ -22,4 +22,10 @@ class Request extends Facade
     {
         return $_POST;
     }
+
+    public static function update(): array
+    {
+        $data = file_get_contents("php://input");
+        return json_decode($data, true);
+    }
 }

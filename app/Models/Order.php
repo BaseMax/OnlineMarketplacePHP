@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Database\Order as DatabaseOrder;
+use App\Exceptions\OrderException;
 use App\Facades\Response;
 
 class Order extends Model
@@ -48,5 +49,15 @@ class Order extends Model
     public static function destroy(int $id): string
     {
         return DatabaseOrder::destroy($id);
+    }
+
+    public static function update(int $id, array $data): array
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return OrderException::error("product not found", 404);
+        }
+        return DatabaseOrder::update($id, $data);
     }
 }

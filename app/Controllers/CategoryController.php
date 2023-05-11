@@ -51,7 +51,7 @@ class CategoryController extends Controller
 
     public function update(int $id)
     {
-        $data = Request::post();
+        $data = Request::update();
 
         $validation = (new Validator())->make($data, [
             "name" => "max:255",
