@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Database\Product as DatabaseProduct;
+use App\Exceptions\ProductException;
 use App\Facades\Response;
 use Exception;
 
@@ -96,5 +97,16 @@ class Product extends Model
     public static function destroy(int $id): string
     {
         return DatabaseProduct::Delete($id);
+    }
+
+
+    public static function update(int $id, array $data): array
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return ProductException::error("product not found", 404);
+        }
+        return DatabaseProduct::update($id, $data);
     }
 }

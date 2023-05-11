@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Exceptions\ProductException;
-use App\Facades\Hash;
-use App\Facades\JWT;
 use App\Facades\Request;
 use App\Facades\Response;
 use App\Models\Product;
@@ -59,8 +57,22 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(int $id)
     {
+        $data = Request::post();
+
+        $validation = (new Validator())->make($data, [
+            "title" => "max:255",
+            "description" => "",
+            "price" => "numeric",
+            "category_id" => "numeric",
+            "seller_id" => "numeric"
+        ]);
+
+        $validation->validate();
+
+        $updatedProduct = Product::update($id, $data);
+        return $updatedProduct;
     }
 
     public function destroy(int $id)

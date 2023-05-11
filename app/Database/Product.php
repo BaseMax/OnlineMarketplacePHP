@@ -99,7 +99,7 @@ class Product extends Database
             $stmt = self::$db->prepare($sql);
             $stmt->execute();
         } catch (Exception $e) {
-            return ProductException::error("unsuccess update");
+            return ProductException::error($e->getMessage());
         }
 
         return self::get_by_id($id);

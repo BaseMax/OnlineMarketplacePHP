@@ -6,9 +6,9 @@ use App\Facades\Response;
 
 class ProductException extends Exception
 {
-    public static function error(string $error = "error in server"): void
+    public static function error(string $error = "error in server", int $status = 500): void
     {
-        Response::statusCode(500);
+        Response::statusCode($status);
         echo Response::json([
             "detail" => $error
         ]);
