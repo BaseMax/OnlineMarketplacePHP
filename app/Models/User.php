@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Database\User as DatabaseUser;
 use DateTime;
 
 class User extends Model
@@ -14,4 +15,9 @@ class User extends Model
     public string $role;
     public DateTime $created_at;
     public DateTime $updated_at;
+
+    public static function all(): array
+    {
+        return DatabaseUser::all();
+    }
 }
