@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Database\Order as DatabaseOrder;
+
 class Order extends Model
 {
     public int $id;
@@ -12,4 +14,9 @@ class Order extends Model
     public int $seller_id;
     public string|null $created_at;
     public string|null $updated_at;
+
+    public static function all(): array
+    {
+        return DatabaseOrder::all();
+    }
 }
