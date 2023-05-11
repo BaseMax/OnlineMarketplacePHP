@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Database\User as DatabaseUser;
 use App\Exceptions\UserException;
 use App\Facades\Response;
-use DateTime;
 use Exception;
 
 class User extends Model
@@ -16,8 +15,8 @@ class User extends Model
     public string $password;
     public string $remember_token;
     public string $role;
-    public DateTime $created_at;
-    public DateTime $updated_at;
+    public string|null $created_at;
+    public string|null $updated_at;
 
     public static function all(): array
     {

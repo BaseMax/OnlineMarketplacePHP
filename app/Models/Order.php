@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use DateTime;
-
 class Order extends Model
 {
     public int $id;
@@ -12,6 +10,6 @@ class Order extends Model
     public float $price;
     public int $category_id;
     public int $seller_id;
-    public DateTime $created_at;
-    public DateTime $updated_at;
+    public string|null $created_at;
+    public string|null $updated_at;
 }

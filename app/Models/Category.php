@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
-use DateTime;
+use App\Database\Category as DatabaseCategory;
 
 class Category extends Model
 {
     public int $id;
     public string $name;
-    public DateTime $created_at;
-    public DateTime $updated_at;
+    public string|null $created_at;
+    public string|null $updated_at;
+
+    public static function all(): array
+    {
+        return DatabaseCategory::all();
+    }
 }
