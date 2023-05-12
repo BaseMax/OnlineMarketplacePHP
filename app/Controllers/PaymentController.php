@@ -18,6 +18,7 @@ class PaymentController extends Controller
     protected static string $TOKEN = "https://nextpay.org/nx/gateway/token";
     protected static string $callback_uri = "http://localhost:5000/callback";
     protected static CurlHandle $curl;
+    protected static string $payment_uri = "https://nextpay.org/nx/gateway/payment/";
 
     public function __construct()
     {
@@ -41,12 +42,14 @@ class PaymentController extends Controller
         if ($validation->fails()) {
             PaymentException::error("order_id and amount is required", 403);
         }
-        header("Content-Type: application/json");
-        $token = $this->token_creator($data["order_id"], $data["amount"]);
+        $response = $this->token_creator($data["order_id"], $data["amount"]);
 
-        // return Response::json($token);
-        Response::json_header();
-        return $token;
+        $response = Helper::decode($response);
+
+        return Response::json([
+            "payment_uri" => self::$payment_uri . $response["trans_id"],
+            "trans_id" => $response["trans_id"]
+        ]);
     }
 
     protected function token_creator(int $order_id, int $amount)

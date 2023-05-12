@@ -48,4 +48,10 @@ class Helper extends Facade
     {
         return http_build_query($formFields);
     }
+
+    public static function decode(string $json): array
+    {
+        Response::json_header();
+        return json_decode($json, true);
+    }
 }
