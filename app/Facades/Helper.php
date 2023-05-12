@@ -33,7 +33,7 @@ class Helper extends Facade
         else return $matches[0];
     }
 
-    public static function randomStr($length = 10): string
+    public static function randomStr(int $length = 10): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
