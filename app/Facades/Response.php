@@ -33,8 +33,8 @@ class Response extends Facade
         ]);
     }
 
-    public static function set_urlEncoded(): void
+    public static function json_header(): void
     {
-        header("Content-Type: application/x-www-form-urlencoded");
+        header("Content-Type: application/json");
     }
 }
