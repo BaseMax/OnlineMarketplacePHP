@@ -32,4 +32,15 @@ class Helper extends Facade
         else if (isset($matches[1])) return $matches[1];
         else return $matches[0];
     }
+
+    public static function randomStr($length = 10): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 }
