@@ -7,6 +7,7 @@ use App\Facades\Config;
 use App\Facades\Helper;
 use App\Facades\Request;
 use App\Facades\Response;
+use App\Models\Payment;
 use CurlHandle;
 use Rakit\Validation\Validator;
 
@@ -45,6 +46,14 @@ class PaymentController extends Controller
         $response = $this->token_creator($data["order_id"], $data["amount"]);
 
         $response = Helper::decode($response);
+
+        Payment::create([
+            "order_id" => $data["order_id"],
+            "amount" => $data["amount"],
+            "status" => "pending",
+            "payment_gateway" => self::$payment_uri . $response["trans_id"],
+            "transaction_id" => $response["trans_id"],
+        ]);
 
         return Response::json([
             "payment_uri" => self::$payment_uri . $response["trans_id"],
