@@ -17,9 +17,10 @@ class PaymentController extends Controller
     protected static string $COMPLETED = "completed";
     protected static string $FAILED = "failed";
     protected static string $TOKEN = "https://nextpay.org/nx/gateway/token";
-    protected static string $callback_uri = "http://localhost:5000/callback";
+    protected static string $callback_uri = "http://localhost:5000/api/callback";
     protected static CurlHandle $curl;
     protected static string $payment_uri = "https://nextpay.org/nx/gateway/payment/";
+    protected static string $verify = "https://nextpay.org/nx/gateway/verify";
 
     public function __construct()
     {
@@ -48,16 +49,16 @@ class PaymentController extends Controller
         $response = Helper::decode($response);
 
         Payment::create([
-            "order_id" => $data["order_id"],
-            "amount" => $data["amount"],
-            "status" => "pending",
+            "order_id"        => $data["order_id"],
+            "amount"          => $data["amount"],
+            "status"          => "pending",
             "payment_gateway" => self::$payment_uri . $response["trans_id"],
-            "transaction_id" => $response["trans_id"],
+            "transaction_id"  => $response["trans_id"],
         ]);
 
         return Response::json([
             "payment_uri" => self::$payment_uri . $response["trans_id"],
-            "trans_id" => $response["trans_id"]
+            "trans_id"    => $response["trans_id"]
         ]);
     }
 
@@ -80,12 +81,12 @@ class PaymentController extends Controller
     protected static function set_headers(): void
     {
         curl_setopt_array(self::$curl, [
-            CURLOPT_URL => self::$TOKEN,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_URL             => self::$TOKEN,
+            CURLOPT_RETURNTRANSFER  => true,
+            CURLOPT_ENCODING        => '',
+            CURLOPT_MAXREDIRS       => 10,
+            CURLOPT_FOLLOWLOCATION  => true,
+            CURLOPT_CUSTOMREQUEST   => 'POST',
         ]);
     }
 
@@ -96,5 +97,32 @@ class PaymentController extends Controller
         curl_setopt_array(self::$curl, [
             CURLOPT_POSTFIELDS => $urlEncoded_data
         ]);
+    }
+
+    public function complete()
+    {
+        $data = Request::get();
+
+        if ($this->verify($data["trans_id"], $data["amount"])) {
+            return Payment::update_success($data["trans_id"]);
+        } else {
+            return Payment::update_failed($data["trans_id"]);
+        }
+    }
+
+    protected function verify(string $trans_id, int $amount): bool
+    {
+        $data = [
+            "trans_id" => $trans_id,
+            "amount"   => $amount,
+            "apy_key"  => Config::api_key()
+        ];
+
+        self::set_postFields($data);
+
+        $response = Helper::decode(curl_exec(self::$curl));
+
+        if ($response["code"] === 0) return true;
+        return false;
     }
 }

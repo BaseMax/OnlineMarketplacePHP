@@ -77,7 +77,7 @@ Router::delete("/api/categories/{id}", [CategoryController::class, "destroy"]);
 
 Router::post("/api/payments", [PaymentController::class, "pay"]);
 
-// Router::
+Router::get("/api/callback", [PaymentController::class, "complete"]);
 
 // fallback
 

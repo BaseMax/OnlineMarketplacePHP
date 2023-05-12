@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Database\Payment as DatabasePayment;
+use App\Facades\Response;
 use DateTime;
 
 class Payment extends Model
@@ -30,5 +31,21 @@ class Payment extends Model
         $data["created_at"] = $instance->created_at;
         $data["updated_at"] = $instance->updated_at;
         return DatabasePayment::create($data);
+    }
+
+    public static function update_success(string $trans_id): string
+    {
+        DatabasePayment::update_success($trans_id);
+        return Response::json([
+            "status" => "success"
+        ]);
+    }
+
+    public static function update_failed(string $trans_id): string
+    {
+        DatabasePayment::update_failed($trans_id);
+        return Response::json([
+            "status" => "failed"
+        ]);
     }
 }

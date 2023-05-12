@@ -28,4 +28,9 @@ class Request extends Facade
         $data = file_get_contents("php://input");
         return json_decode($data, true);
     }
+
+    public static function get(): array
+    {
+        return $_GET;
+    }
 }

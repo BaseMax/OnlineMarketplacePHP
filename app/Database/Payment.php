@@ -10,6 +10,7 @@ class Payment extends Database
 {
     protected static string $insert_payment = "INSERT INTO payments ({columns}) VALUES ({values});";
     protected static string $get_by_id = "SELECT * FROM payments WHERE `id` = {id};";
+    protected static string $update = "UPDATE payments SET `status` = {status} WHERE `transaction_id` = {id};";
 
 
     public function __construct()
@@ -48,5 +49,38 @@ class Payment extends Database
         }
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function update_success(string $trans_id): bool
+    {
+        return self::update($trans_id, "completed");
+    }
+
+    public static function update_failed(string $trans_id): bool
+    {
+        return self::update($trans_id, "failed");
+    }
+
+    private static function update(string $trans_id, string $status): bool
+    {
+        new self;
+
+        $sql = self::$update;
+        $sql = self::setId($sql, $trans_id);
+        $sql = self::setStatus($sql, $status);
+
+        try {
+            $stmt = self::$db->prepare($sql);
+            $stmt->execute();
+        } catch (Exception $e) {
+            PaymentException::error($e->getMessage());
+        }
+
+        return true;
+    }
+
+    private static function setStatus(string $sql, string $status): string
+    {
+        return str_replace("{status}", $status, $sql);
     }
 }
