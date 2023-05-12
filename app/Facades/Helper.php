@@ -43,4 +43,9 @@ class Helper extends Facade
         }
         return $randomString;
     }
+
+    public static function urlEncode_format(array $formFields): string
+    {
+        return http_build_query($formFields);
+    }
 }

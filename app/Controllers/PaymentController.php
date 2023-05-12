@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Exceptions\PaymentException;
 use App\Facades\Config;
+use App\Facades\Helper;
 use App\Facades\Request;
 use App\Facades\Response;
 use GuzzleHttp\Client;
@@ -15,7 +16,7 @@ class PaymentController extends Controller
     protected static string $COMPLETED = "completed";
     protected static string $FAILED = "failed";
     protected static string $TOKEN = "https://nextpay.org/nx/gateway/token";
-    protected static string $callback_uri = "test.com";
+    protected static string $callback_uri = "http://localhost:5000/callback";
     protected static Client $client;
 
     public function __construct()
@@ -54,7 +55,8 @@ class PaymentController extends Controller
             "callback_uri" => self::$callback_uri
         ];
 
-        $response = self::$client->post(self::$TOKEN, $data);
+        // $response = self::$client->post(self::$TOKEN, $data);
+        $response = self::$client->request("POST", self::$TOKEN, $data);
 
         return $response;
     }

@@ -32,4 +32,9 @@ class Response extends Facade
             "detail" => $detail
         ]);
     }
+
+    public static function set_urlEncoded(): void
+    {
+        header("Content-Type: application/x-www-form-urlencoded");
+    }
 }
