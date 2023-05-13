@@ -32,7 +32,7 @@ class Database
         return str_replace("{values}", $implode, $sql);
     }
 
-    protected static function setId(string $sql, int $id): string
+    protected static function setId(string $sql, int|string $id): string
     {
         return str_replace("{id}", $id, $sql);
     }

@@ -66,7 +66,7 @@ class Payment extends Database
         new self;
 
         $sql = self::$update;
-        $sql = self::setId($sql, $trans_id);
+        $sql = self::setId($sql, '"' . $trans_id . '"');
         $sql = self::setStatus($sql, $status);
 
         try {
