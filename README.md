@@ -57,6 +57,15 @@ An online marketplace that allows users to buy and sell products. Users can regi
 
 - `POST /api/payments`: Process payment using payment gateway (With a good structure that allows us to add more gateways in the future)
 
+Example Response:
+```console
+{
+    "payment_uri": "https://nextpay.org/nx/gateway/payment/267a5387-af3a-4063-8d41-87df73f38f60",
+    "trans_id": "267a5387-af3a-4063-8d41-87df73f38f60"
+}
+```
+
+
 Note: This is just an example, and you may need to modify the routes and methods based on the specific requirements.
 
 ## Database Schema
