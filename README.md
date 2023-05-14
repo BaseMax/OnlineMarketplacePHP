@@ -26,13 +26,19 @@ An online marketplace that allows users to buy and sell products. Users can regi
 {
     "JWT_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     "email": "ali@gmail.com",
-    "password": "dkdwnwjwueu38jfwdndnwi2293njs"
+    "password": "$2y$10$ChXlwPFkN6U/YCTQikrYeu4pRlxx6ZLe.mj0mKwkQC/UJLjfYMsZa"
  }
 ```
 - `POST /api/register`: Register a new user account
 
 ```console
-
+{
+    "id": 1,
+    "name": "ali",
+    "email": "ali@gmail.com",
+    "password": "$2y$10$ChXlwPFkN6U/YCTQikrYeu4pRlxx6ZLe.mj0mKwkQC/UJLjfYMsZa",
+    "remember_token": "sskjdh2fudn1"
+}
 ```
 
 ### Products:
