@@ -21,7 +21,19 @@ An online marketplace that allows users to buy and sell products. Users can regi
 ### Authentication:
 
 - `POST /api/login`: Authenticate user and generate access token
+
+```console
+{
+    "JWT_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    "email": "ali@gmail.com",
+    "password": "dkdwnwjwueu38jfwdndnwi2293njs"
+ }
+```
 - `POST /api/register`: Register a new user account
+
+```console
+
+```
 
 ### Products:
 
@@ -132,7 +144,7 @@ Note: This is just an example, and you may need to modify the routes and methods
 
 ## Authors
 
-- Ali
+- Ali Ahmadi
 - Max Base
 
 Copyright 2023, Max Base
