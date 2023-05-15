@@ -29,6 +29,7 @@ An online marketplace that allows users to buy and sell products. Users can regi
     "password": "$2y$10$ChXlwPFkN6U/YCTQikrYeu4pRlxx6ZLe.mj0mKwkQC/UJLjfYMsZa"
  }
 ```
+
 - `POST /api/register`: Register a new user account
 
 ```console
@@ -65,6 +66,7 @@ An online marketplace that allows users to buy and sell products. Users can regi
 - `DELETE /api/users/{id}`: Delete a user account
 
 ### Categories:
+
 - `GET /api/categories`: Retrieve all categories
 - `GET /api/categories/{id}`: Retrieve a specific category by ID
 - `POST /api/categories`: Create a new category
@@ -83,7 +85,6 @@ Example Response:
     "trans_id": "267a5387-af3a-4063-8d41-87df73f38f60"
 }
 ```
-
 
 Note: This is just an example, and you may need to modify the routes and methods based on the specific requirements.
 
