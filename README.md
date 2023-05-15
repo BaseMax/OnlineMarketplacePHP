@@ -92,53 +92,54 @@ Note: This is just an example, and you may need to modify the routes and methods
 
 ### Users
 
-- id: int (primary key)
-- name: varchar(255)
-- email: varchar(255)
-- password: varchar(255)
-- remember_token: varchar(100)
-- role: enum('buyer', 'seller', 'admin')
-- created_at: timestamp
-- updated_at: timestamp
+- `id`: int (primary key)
+- `name`: varchar(255)
+- `email`: varchar(255)
+- `password`: varchar(255)
+- `remember_token`: varchar(100)
+- `role`: enum('buyer', 'seller', 'admin')
+- `created_at`: timestamp
+- `updated_at`: timestamp
 
 ### Categories
 
-- id: int (primary key)
-- name: varchar(255)
-- created_at: timestamp
-- updated_at: timestamp
+- `id`: int (primary key)
+- `name`: varchar(255)
+- `created_at`: timestamp
+- `updated_at`: timestamp
 
 ### Products
 
-- id: int (primary key)
-- title: varchar(255)
-- description: text
-- price: decimal(8,2)
-- category_id: int (foreign key to Categories table)
-- seller_id: int (foreign key to Users table)
-- created_at: timestamp
-- updated_at: timestamp
+- `id`: int (primary key)
+- `title`: varchar(255)
+- `description`: text
+- `price`: decimal(8,2)
+- `category_id`: int (foreign key to Categories table)
+- `seller_id`: int (foreign key to Users table)
+- `created_at`: timestamp
+- `updated_at`: timestamp
 
 ### Orders
 
-- id: int (primary key)
-- buyer_id: int (foreign key to Users table)
-- product_id: int (foreign key to Products table)
-- quantity: int
-- amount: decimal(8,2)
-- status: enum('pending', 'completed', 'cancelled')
-- created_at: timestamp
-- updated_at: timestamp
+- `id: int (primary key)
+- `buyer_id: int (foreign key to Users table)
+- `product_id: int (foreign key to Products table)
+- `quantity: int
+- `amount: decimal(8,2)
+- `status: enum('pending', 'completed', 'cancelled')
+- `created_at: timestamp
+- `updated_at: timestamp
 
 ### Payments
-- id: int (primary key)
-- order_id: int (foreign key to Orders table)
-- amount: decimal(8,2)
-- status: enum('pending', 'completed', 'failed')
-- payment_gateway: varchar(255)
-- transaction_id: varchar(255)
-- created_at: timestamp
-- updated_at: timestamp
+
+- `id`: int (primary key)
+- `order_id`: int (foreign key to Orders table)
+- `amount`: decimal(8,2)
+- `status`: enum('pending', 'completed', 'failed')
+- `payment_gateway`: varchar(255)
+- `transaction_id`: varchar(255)
+- `created_at`: timestamp
+- `updated_at`: timestamp
 
 ## Evaluation Criteria
 
