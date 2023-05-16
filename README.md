@@ -150,6 +150,28 @@ Note: This is just an example, and you may need to modify the routes and methods
 - Proper use of error handling and logging
 - Good coding practices, such as adherence to coding standards and proper documentation
 
+## Installation
+
+In first step you need to clone this repository from github to your local environment:
+```console
+git clone https://github.com/BaseMax/OnlineMarketplacePHP.git
+```
+
+Now you must run some command to install dependecies and create .env file:
+
+```console
+composer install
+```
+```console
+cp .env.example .env
+```
+
+Now open .env file and fill the things that are needed.
+Navigate to public folder and run below command to start serving on localhost:
+```console
+php -S localhost:5000
+```
+
 ## Authors
 
 - Ali Ahmadi
