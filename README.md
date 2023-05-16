@@ -5,7 +5,7 @@ An online marketplace that allows users to buy and sell products. Users can regi
 ## Requirements
 
 - User registration and login with password hashing
-- User roles: buyer, seller, and admin
+- User roles: **buyer**, **seller**, and **admin**
 - Sellers can create and manage their own product listings
 - Product listings include title, description, price, category, and images
 - Users can browse products by category and search for products by keyword
@@ -152,7 +152,8 @@ Note: This is just an example, and you may need to modify the routes and methods
 
 ## Installation
 
-In first step you need to clone this repository from github to your local environment:
+First step, You need to clone this repository from GitHub to your local environment:
+
 ```console
 git clone https://github.com/BaseMax/OnlineMarketplacePHP.git
 ```
@@ -166,8 +167,10 @@ composer install
 cp .env.example .env
 ```
 
-Now open .env file and fill the things that are needed.
-Navigate to public folder and run below command to start serving on localhost:
+Now open `.env` file and fill the things that are needed.
+
+Navigate to `public` folder and run below command to start serving on the localhost:
+
 ```console
 php -S localhost:5000
 ```
