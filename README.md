@@ -121,14 +121,14 @@ Note: This is just an example, and you may need to modify the routes and methods
 
 ### Orders
 
-- `id: int (primary key)
-- `buyer_id: int (foreign key to Users table)
-- `product_id: int (foreign key to Products table)
-- `quantity: int
-- `amount: decimal(8,2)
-- `status: enum('pending', 'completed', 'cancelled')
-- `created_at: timestamp
-- `updated_at: timestamp
+- `id`: int (primary key)
+- `buyer_id`: int (foreign key to Users table)
+- `product_id`: int (foreign key to Products table)
+- `quantity`: int
+- `amount`: decimal(8,2)
+- `status`: enum('pending', 'completed', 'cancelled')
+- `created_at`: timestamp
+- `updated_at`: timestamp
 
 ### Payments
 
