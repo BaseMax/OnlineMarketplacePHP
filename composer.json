@@ -13,7 +13,7 @@
   ],
   "require": {
     "vlucas/phpdotenv": "^5.5",
-    "firebase/php-jwt": "^6.4",
+    "firebase/php-jwt": "^7.0",
     "rakit/validation": "^1.4",
     "guzzlehttp/guzzle": "^7.5",
     "ramsey/uuid": "^4.7"
